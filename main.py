@@ -299,7 +299,7 @@ class SimpleIterationsMethod(SolveMethod):
 
 
 def main():
-    print("Дроби воодятся через точку: 0.0001, например")
+    print("Дроби вводятся через точку: 0.0001, например")
     a = input("Введите a: ")
     b = input("Введите b: ")
 
