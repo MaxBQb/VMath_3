@@ -33,15 +33,12 @@ class Expression:
 
     def compile(self, no_edit=False, include_static=True, **kwargs):
         if not no_edit:
-            from re import sub
             for e in kwargs:
                 if str(kwargs[e]).startswith('-'):
                     kwargs[e] = f"({str(kwargs[e])})"
         if include_static:
             kwargs.update(self._static_vars)
         result = self._str_repr.format(**kwargs)
-        if not no_edit:
-            result = sub(r"(\*1\b)|(\b1\*)", "", result)
 
         return result
 
