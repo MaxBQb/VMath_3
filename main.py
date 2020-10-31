@@ -299,6 +299,7 @@ class SimpleIterationsMethod(SolveMethod):
 
 
 def main():
+    print("Дроби воодятся через точку: 0.0001, например")
     a = input("Введите a: ")
     b = input("Введите b: ")
 
@@ -308,6 +309,9 @@ def main():
 
     print("f(x):", expr.get_unified())
     print("f'(x):", d_expr.get_unified())
+    from urllib.parse import quote
+    print('Экстремумы можно взять отсюда: (значения x)')
+    print(f"https://www.wolframalpha.com/input/?i={quote(d_expr.get_unified()+' = 0')}")
 
     extr1 = Decimal(input("Введите extr1: "))
     extr2 = Decimal(input("Введите extr2: "))
@@ -317,7 +321,7 @@ def main():
         (SecantMethod, (-b+Decimal("0.5"), Decimal("-0.5"))),
         (SimpleIterationsMethod, (-b-Decimal("1"), extr1)),
     ]
-
+    res = set()
     for (method, bounds) in methods:
         print("\n\t\t\t---\n")
         solver = method(expr=expr,
@@ -327,7 +331,12 @@ def main():
                         accuracy=3,
                         )
         x = solver.run()
+        res.add(x)
         print(f"Root is {x}, proof: {expr.execute(x=x)}")
+    print("Итого корни:", *res)
+    print("Значения приближённые, это нормально")
+    print("Их можно проверить тут:")
+    print(f"https://www.wolframalpha.com/input/?i={quote(expr.get_unified() + ' = 0')}")
 
 
 if __name__ == '__main__':
